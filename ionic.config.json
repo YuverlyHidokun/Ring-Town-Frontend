@@ -1,0 +1,7 @@
+{
+  "name": "ring-town",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
