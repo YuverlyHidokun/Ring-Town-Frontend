@@ -1,0 +1,41 @@
+<ion-content *ngIf="!cargando; else cargandoPlantilla">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+      </ion-buttons>
+      <ion-title>{{ playlist?.nombre }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card class="ion-margin">
+    <ion-card-header>
+      <ion-card-title>{{ playlist?.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ playlist?.descripcion }}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-list *ngIf="playlist?.canciones?.length > 0; else sinCanciones">
+    <ion-item *ngFor="let cancion of playlist.canciones">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="cancion.portadaUrl || 'assets/placeholder.png'"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ cancion.titulo }}</h2>
+        <p>{{ cancion.artista }} - {{ cancion.genero }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinCanciones>
+    <ion-item>
+      <ion-label>No hay canciones en esta playlist</ion-label>
+    </ion-item>
+  </ng-template>
+</ion-content>
+
+<ng-template #cargandoPlantilla>
+  <ion-content class="ion-padding">
+    <ion-spinner name="dots"></ion-spinner>
+  </ion-content>
+</ng-template>

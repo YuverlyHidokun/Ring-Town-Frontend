@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Reproduciendo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+<app-reproductor-musica
+  [audioUrl]="cancionActual.audioUrl"
+  [titulo]="cancionActual.titulo"
+  [artista]="cancionActual.artista"
+  [portadaUrl]="cancionActual.portadaUrl"
+  [cancionId]="cancionActual.cancionId"
+  (siguiente)="reproducirSiguiente()"
+  (anterior)="reproducirAnterior()">
+</app-reproductor-musica>
+</ion-content>

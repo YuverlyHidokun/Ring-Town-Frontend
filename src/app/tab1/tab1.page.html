@@ -22,7 +22,12 @@
         <h2>{{ cancion.titulo }}</h2>
         <p>{{ cancion.artista }} | {{ cancion.genero }}</p>
       </ion-label>
+
+      <ion-button fill="clear" slot="end" (click)="reproducirCancion(cancion)">
+        <ion-icon name="play-circle-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
+
 
 </ion-content>

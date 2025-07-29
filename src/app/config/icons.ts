@@ -10,10 +10,17 @@ import {
   albumsOutline,
   playCircleOutline,
   pauseCircleOutline,
+  play,          // <-- agregar aquí
+  pause,         // <-- agregar aquí
   heartOutline,
   heart,
   trashBinOutline,
-  pencilOutline
+  pencilOutline,
+  playSkipForwardOutline,
+  playSkipBackOutline,
+  repeatOutline,
+  repeat
+
 } from 'ionicons/icons';
 
 addIcons({
@@ -27,8 +34,14 @@ addIcons({
   'albums-outline': albumsOutline,           // Para álbumes o colecciones
   'play-circle-outline': playCircleOutline,  // Reproducir canción
   'pause-circle-outline': pauseCircleOutline,// Pausar canción
+  'play': play,                              // <-- agregar aquí
+  'pause': pause,                            // <-- agregar aquí
   'heart-outline': heartOutline,             // Agregar a favoritos
   'heart': heart,                            // Ya en favoritos
   'trash-bin-outline': trashBinOutline,      // Eliminar
-  'pencil-outline': pencilOutline            // Editar
+  'pencil-outline': pencilOutline,
+  'play-skip-forward': playSkipForwardOutline,
+  'play-skip-back': playSkipBackOutline,
+  'repeat-outline': repeatOutline,     
+  'repeat': repeat // <-- agregar aquí
 });

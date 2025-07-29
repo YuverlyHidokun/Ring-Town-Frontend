@@ -1,0 +1,81 @@
+.player-container {
+  background-color: #121212;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  max-width: 350px;
+  margin: auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.album-cover {
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  object-fit: cover;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.song-info {
+  margin-bottom: 15px;
+}
+
+.song-info h4 {
+  margin: 0;
+  font-size: 1.3em;
+}
+
+.song-info p {
+  margin: 0;
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+ion-progress-bar {
+  height: 6px;
+  margin-top: 10px;
+  --progress-background: #404040;
+  --progress-color: #1db954; // verde Spotify
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.time-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75em;
+  margin-top: 5px;
+  color: #aaa;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+ion-button {
+  --color: #1db954;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --border-radius: 50%;
+  --background: transparent;
+  --background-hover: rgba(29, 185, 84, 0.1);
+}
+
+ion-button:hover ion-icon {
+  color: #1ed760;
+  transform: scale(1.1);
+}
+
+ion-icon {
+  font-size: 1.8em;
+  color: #1db954;
+  transition: transform 0.2s ease, color 0.2s ease;
+}

@@ -1,17 +1,49 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title>Mis Playlists</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="abrirModalCrearPlaylist()" class="crear-btn">
+        <ion-icon slot="icon-only" name="add-circle-outline" color="success"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-list *ngIf="playlists.length > 0; else sinPlaylists">
+    <ion-item 
+      *ngFor="let playlist of playlists" 
+      (click)="verPlaylist(playlist)" 
+      button 
+      detail
+      class="playlist-item">
+
+  <ion-item button (click)="verPlaylist(playlist)">
+    <ion-label>
+      <h2>{{ playlist.nombre }}</h2>
+      <p>{{ playlist.descripcion }}</p>
+    </ion-label>
+  </ion-item>
+
+      <ion-button 
+        fill="clear" 
+        color="danger" 
+        slot="end" 
+        (click)="eliminarPlaylist(playlist._id); $event.stopPropagation()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinPlaylists>
+    <div class="no-playlists">
+      <ion-icon name="musical-notes-outline" size="large" color="medium"></ion-icon>
+      <p>No tienes playlists aún.</p>
+      <ion-button color="success" (click)="abrirModalCrearPlaylist()">
+        Crear una playlist
+      </ion-button>
+    </div>
+  </ng-template>
+
 </ion-content>

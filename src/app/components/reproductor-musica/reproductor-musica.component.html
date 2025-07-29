@@ -1,0 +1,46 @@
+<div class="player-container">
+  <img [src]="portadaUrl" alt="Portada" class="album-cover" />
+
+  <div class="song-info">
+    <h4>{{ titulo }}</h4>
+    <p>{{ artista }}</p>
+  </div>
+
+  <ion-progress-bar [value]="currentTime / duration"></ion-progress-bar>
+  <div class="time-info">
+    <span>{{ formatTime(currentTime) }}</span>
+    <span>{{ formatTime(duration) }}</span>
+  </div>
+
+  <div class="controls">
+    <ion-button fill="clear" (click)="toggleRepetir()">
+      <ion-icon [name]="repetir ? 'repeat' : 'repeat-outline'"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" (click)="prevSong()">
+      <ion-icon name="play-skip-back"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" (click)="togglePlay()">
+      <ion-icon [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" (click)="nextSong()">
+      <ion-icon name="play-skip-forward"></ion-icon>
+    </ion-button>
+
+    <!-- NUEVO: Botón para abrir el selector -->
+    <ion-button fill="clear" (click)="mostrarSelectorPlaylist = !mostrarSelectorPlaylist">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Selector desplegable -->
+  <ion-item *ngIf="mostrarSelectorPlaylist" lines="none" style="margin-top: 10px;">
+    <ion-label>Elegir playlist</ion-label>
+    <ion-select [(ngModel)]="playlistSeleccionada" interface="popover" placeholder="Selecciona una playlist">
+      <ion-select-option *ngFor="let p of playlists" [value]="p._id">{{ p.nombre }}</ion-select-option>
+    </ion-select>
+    <ion-button (click)="agregarCancionAPlaylist()" slot="end">Agregar</ion-button>
+  </ion-item>
+</div>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Editar Perfil</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="cerrar()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding editar-perfil-content">
+
+  <form (submit)="guardarCambios()" novalidate>
+    <ion-item>
+      <ion-label position="floating" color="primary">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Apellido</ion-label>
+      <ion-input [(ngModel)]="apellido" name="apellido" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Número</ion-label>
+      <ion-input [(ngModel)]="numero" name="numero" type="tel" required></ion-input>
+    </ion-item>
+
+    <ion-button type="submit" expand="block" class="ion-margin-top guardar-btn">
+      Guardar Cambios
+    </ion-button>
+  </form>
+
+</ion-content>

@@ -1,0 +1,52 @@
+.editar-perfil-content {
+  ion-item {
+    --background: #121212;  /* fondo oscuro */
+    --border-radius: 12px;
+    --padding-start: 14px;
+    margin-top: 12px;
+    border: 1.5px solid #1DB954; /* verde Spotify */
+    box-shadow: 0 2px 8px rgba(29, 185, 84, 0.4);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    &:focus-within {
+      box-shadow: 0 0 10px #1DB954;
+      border-color: #1DB954;
+    }
+  }
+
+  ion-label {
+    font-weight: 600;
+    color: #1DB954;  /* verde para labels */
+    font-size: 1rem;
+  }
+
+  ion-input {
+    color: #fff; /* texto blanco */
+    font-weight: 500;
+  }
+
+  .guardar-btn {
+    --background: #1DB954;
+    --color: #000;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    border-radius: 30px;
+    padding: 12px 20px;
+    box-shadow: 0 6px 12px rgba(29, 185, 84, 0.5);
+    transition: background 0.3s ease;
+
+    &:hover,
+    &:focus {
+      --background: #17a64a; /* verde más oscuro */
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(23, 166, 74, 0.8);
+    }
+  }
+
+  ion-header,
+  ion-toolbar {
+    --background: #121212;
+    --color: #fff;
+    border-bottom: 1px solid #1DB954;
+  }
+}

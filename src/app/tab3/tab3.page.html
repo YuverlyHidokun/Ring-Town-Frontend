@@ -1,17 +1,40 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
+    <ion-title>Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="page-bg" [fullscreen]="true" *ngIf="isLoggedIn; else loginPrompt">
+  <div class="perfil-container ion-padding">
+    <div class="foto-container" (click)="cambiarFotoPerfil()">
+      <img [src]="usuario?.imagenUrl || 'assets/default-profile.png'" alt="Foto de perfil" class="foto-perfil" />
+      <ion-icon name="camera" class="icono-camara"></ion-icon>
+    </div>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+    <h2 class="nombre-usuario">{{ usuario?.nombre || 'Usuario' }}</h2>
+    <p class="correo-usuario">{{ usuario?.email || 'correo@ejemplo.com' }}</p>
+
+    <ion-button expand="block" color="success" (click)="abrirModalEditar()">
+      Editar Perfil
+    </ion-button>
+
+    <ion-button expand="block" color="warning" (click)="abrirModalPassword()">
+      Cambiar Contraseña
+    </ion-button>
+
+    <ion-button expand="block" color="danger" (click)="cerrarSesion()">
+      Cerrar Sesión
+    </ion-button>
+  </div>
 </ion-content>
+
+<ng-template #loginPrompt>
+  <ion-content class="page-bg ion-padding" [fullscreen]="true">
+    <div class="no-login">
+      <p>No has iniciado sesión.</p>
+      <ion-button color="success" expand="block" (click)="goToLogin()">
+        Iniciar Sesión
+      </ion-button>
+    </div>
+  </ion-content>
+</ng-template>
