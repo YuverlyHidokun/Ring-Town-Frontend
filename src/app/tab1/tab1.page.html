@@ -1,17 +1,28 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding page-bg" fullscreen>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- LOGO -->
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Ring Town" class="logo" />
+  </div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- BARRA DE BÚSQUEDA -->
+  <ion-searchbar
+    [(ngModel)]="genero"
+    (ionInput)="buscarPorGenero()"
+    placeholder="Buscar por género..."
+    class="custom-search"
+    color="light">
+  </ion-searchbar>
+
+  <!-- LISTADO DE CANCIONES -->
+  <ion-list class="song-list">
+    <ion-item *ngFor="let cancion of canciones" lines="none">
+      <ion-img [src]="cancion.portadaUrl" class="song-img" slot="start"></ion-img>
+      <ion-label>
+        <h2>{{ cancion.titulo }}</h2>
+        <p>{{ cancion.artista }} | {{ cancion.genero }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

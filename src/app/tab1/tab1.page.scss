@@ -1,0 +1,38 @@
+.page-bg {
+  --background: #000;
+  color: #fff;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.logo {
+  height: 50px;
+  object-fit: contain;
+}
+
+.custom-search {
+  margin-bottom: 10px;
+  --background: #1db954;
+  --color: #000;
+  --placeholder-color: #000;
+  border-radius: 10px;
+}
+
+.song-list ion-item {
+  background: #121212;
+  margin: 8px 0;
+  border-radius: 12px;
+  --padding-start: 12px;
+}
+
+.song-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 12px;
+}

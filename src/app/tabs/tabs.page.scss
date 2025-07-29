@@ -1,1 +1,26 @@
+ion-tab-bar {
+  background-color: #000; /* Fondo negro estilo Spotify */
+  border-top: none;       /* Quita el borde blanco feo */
+  box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.4); /* Sombra superior ligera */
+  --color: #b3b3b3;        /* Color gris para íconos inactivos */
+  --color-selected: #1DB954; /* Verde Spotify para el ícono activo */
+  --background: #000;      /* Asegura fondo negro en todas partes */
+  padding-bottom: env(safe-area-inset-bottom); /* Mejor para móviles */
+}
 
+ion-tab-button {
+  --ripple-color: transparent; /* Sin animación de ripple blanca */
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+}
+
+ion-icon {
+  font-size: 20px;
+}
+
+ion-label {
+  font-size: 12px;
+  margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
