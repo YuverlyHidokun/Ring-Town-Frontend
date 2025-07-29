@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Crear Cuenta</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-avatar (click)="seleccionarFoto()">
+        <img *ngIf="imagenPreview" [src]="imagenPreview" alt="Foto de perfil" class="imagen-preview" />
+        <div *ngIf="!imagenPreview" class="placeholder-avatar">Selecciona una foto</div>
+      </ion-avatar>
+
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Apellido</ion-label>
+        <ion-input [(ngModel)]="apellido" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Número</ion-label>
+        <ion-input [(ngModel)]="numero" type="tel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input [(ngModel)]="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input [(ngModel)]="password" type="password" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-checkbox slot="start" [(ngModel)]="acepta_terminos"></ion-checkbox>
+        <ion-label (click)="irATerminos()">Acepto términos y condiciones</ion-label>
+      </ion-item>
+
+      <ion-button expand="block" (click)="registrar()">Registrarse</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
