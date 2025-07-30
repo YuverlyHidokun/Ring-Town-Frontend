@@ -51,19 +51,18 @@ export class EditarPerfilModal {
     }
   }
 
+  // Solo datos (nombre, apellido, numero)
   async guardarCambios() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    const formData = new FormData();
-    formData.append('nombre', this.nombre);
-    formData.append('apellido', this.apellido);
-    formData.append('numero', this.numero);
-    if (this.imagen) {
-      formData.append('imagen', this.imagen);
-    }
+    const body = {
+      nombre: this.nombre,
+      apellido: this.apellido,
+      numero: this.numero
+    };
 
-    this.http.put(`${API_URL}/travel/usuarios/perfil`, formData, { headers }).subscribe({
+    this.http.put(`${API_URL}/music/usuarios/actualizar-perfil`, body, { headers }).subscribe({
       next: async () => {
         const toast = await this.toastCtrl.create({
           message: 'Perfil actualizado correctamente',
@@ -76,6 +75,45 @@ export class EditarPerfilModal {
       error: async err => {
         const toast = await this.toastCtrl.create({
           message: err.error?.msg || 'Error al actualizar perfil',
+          duration: 2000,
+          color: 'danger'
+        });
+        toast.present();
+      }
+    });
+  }
+
+  // Solo imagen
+  async actualizarImagen() {
+    if (!this.imagen) {
+      const toast = await this.toastCtrl.create({
+        message: 'Selecciona una imagen primero',
+        duration: 2000,
+        color: 'warning'
+      });
+      toast.present();
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    const formData = new FormData();
+    formData.append('imagen', this.imagen);
+
+    this.http.put(`${API_URL}/music/usuarios/actualizar-imagen`, formData, { headers }).subscribe({
+      next: async () => {
+        const toast = await this.toastCtrl.create({
+          message: 'Imagen actualizada correctamente',
+          duration: 2000,
+          color: 'success'
+        });
+        toast.present();
+        this.modalCtrl.dismiss(true); // Recargar perfil
+      },
+      error: async err => {
+        const toast = await this.toastCtrl.create({
+          message: err.error?.msg || 'Error al actualizar imagen',
           duration: 2000,
           color: 'danger'
         });

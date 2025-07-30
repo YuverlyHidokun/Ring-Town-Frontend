@@ -6,7 +6,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_URL } from 'src/app/config/api';
 import { EditarPerfilModal } from '../modals/editar-perfil.modal';
 
-
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -75,7 +74,7 @@ export class Tab3Page implements OnInit {
       const formData = new FormData();
       formData.append('imagen', file);
 
-      this.http.put(`${API_URL}/actualizar-imagen`, formData, this.getAuthHeaders())
+      this.http.put(`${API_URL}/music/usuarios/actualizar-imagen`, formData, this.getAuthHeaders())
         .subscribe({
           next: (res: any) => {
             this.presentToast(res.msg || 'Imagen actualizada');
@@ -162,7 +161,8 @@ export class Tab3Page implements OnInit {
       confirmarpassword
     };
 
-    this.http.put(`${API_URL}/actualizar-password`, body, this.getAuthHeaders()).subscribe({
+    // CORREGIDO: usa la ruta correcta
+    this.http.put(`${API_URL}/music/usuarios/actualizar-password`, body, this.getAuthHeaders()).subscribe({
       next: () => {
         this.presentToast('Contraseña actualizada correctamente');
       },
