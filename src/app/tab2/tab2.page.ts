@@ -12,7 +12,8 @@ import {
   AlertController,
   LoadingController,
   IonIcon,       // <--- Agregar
-  IonButtons
+  IonButtons,
+  IonImg 
 } from '@ionic/angular/standalone';
 import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/config/api';
@@ -25,7 +26,7 @@ import { Router } from '@angular/router';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton,  IonIcon, IonButtons, HttpClientModule, CommonModule,  ]
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton,  IonIcon, IonButtons, HttpClientModule, CommonModule, IonImg  ]
 })
 export class Tab2Page {
   playlists: any[] = [];
@@ -163,5 +164,17 @@ export class Tab2Page {
 
   verPlaylist(playlist: any) {
     this.router.navigate(['/playlist', playlist._id]);
+  }
+
+    reproducirCancion(cancion: any) {
+    this.router.navigate(['/reproductor'], {
+      queryParams: {
+        audioUrl: cancion.audioUrl,
+        titulo: cancion.titulo,
+        artista: cancion.artista,
+        portadaUrl: cancion.portadaUrl,
+        cancionId: cancion._id
+      }
+    });
   }
 }

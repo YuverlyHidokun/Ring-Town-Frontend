@@ -19,8 +19,11 @@ import {
   IonBackButton,
   IonButtons,
   IonCardHeader,
+  IonButton,   // <-- AGREGA ESTO
+  IonIcon  
 } from '@ionic/angular/standalone';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 const API_URL = 'https://ring-town-backend.onrender.com';
 
@@ -48,6 +51,8 @@ const API_URL = 'https://ring-town-backend.onrender.com';
     IonBackButton,
     IonButtons,
     IonCardHeader,
+    IonButton,   // <-- AGREGA ESTO
+    IonIcon  
   ]
 })
 export class PlaylistDetallePage implements OnInit {
@@ -57,7 +62,8 @@ export class PlaylistDetallePage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -79,4 +85,24 @@ export class PlaylistDetallePage implements OnInit {
       });
     }
   }
+    reproducirCancion(cancion: any, index: number) {
+      this.router.navigate(['/reproductor'], {
+        queryParams: {
+          audioUrl: cancion.audioUrl,
+          titulo: cancion.titulo,
+          artista: cancion.artista,
+          portadaUrl: cancion.portadaUrl,
+          cancionId: cancion._id,
+          playlistCanciones: JSON.stringify(this.playlist.canciones.map((c: any) => ({
+            audioUrl: c.audioUrl,
+            titulo: c.titulo,
+            artista: c.artista,
+            portadaUrl: c.portadaUrl,
+            cancionId: c._id
+          }))),
+          currentIndex: index
+        }
+      });
+    }
 }
+

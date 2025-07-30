@@ -1,31 +1,16 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Mis Playlists</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="abrirModalCrearPlaylist()" class="crear-btn">
-        <ion-icon slot="icon-only" name="add-circle-outline" color="success"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
 
   <ion-list *ngIf="playlists.length > 0; else sinPlaylists">
     <ion-item 
       *ngFor="let playlist of playlists" 
-      (click)="verPlaylist(playlist)" 
-      button 
+      class="playlist-item"
+      lines="full"
       detail
-      class="playlist-item">
-
-  <ion-item button (click)="verPlaylist(playlist)">
-    <ion-label>
-      <h2>{{ playlist.nombre }}</h2>
-      <p>{{ playlist.descripcion }}</p>
-    </ion-label>
-  </ion-item>
-
+      (click)="verPlaylist(playlist)">
+      <ion-label>
+        <h2>{{ playlist.nombre }}</h2>
+        <p>{{ playlist.descripcion }}</p>
+      </ion-label>
       <ion-button 
         fill="clear" 
         color="danger" 

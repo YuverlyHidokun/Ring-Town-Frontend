@@ -1,12 +1,11 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonButton, IonIcon, IonProgressBar, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonButton, IonIcon, IonProgressBar, IonSelect, IonSelectOption, IonItem, IonLabel } from '@ionic/angular/standalone';
 import { Howl, Howler } from 'howler';
-import { PlaylistsService } from 'src/app/services/playlists.service'; // Ajusta ruta si es necesario
-import { IonItem, IonLabel } from '@ionic/angular/standalone';
+import { PlaylistsService } from 'src/app/services/playlists.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reproductor-musica',
@@ -21,7 +20,6 @@ export class ReproductorMusicaComponent implements OnInit, OnDestroy {
   @Input() artista: string = '';
   @Input() portadaUrl: string = '';
   @Input() cancionId!: string;
-  
 
   sound!: Howl;
   isPlaying = false;
@@ -29,16 +27,45 @@ export class ReproductorMusicaComponent implements OnInit, OnDestroy {
   currentTime: number = 0;
   interval: any;
   repetir = false;
-  playlists: any[] = [];  // Lista de playlists para el selector
+  playlists: any[] = [];
   playlistSeleccionada: string = '';
   mostrarSelectorPlaylist: boolean = false;
 
+  // Para navegación entre canciones de playlist
+  playlistCanciones: any[] = [];
+  currentIndex: number = -1;
 
-  constructor(private playlistsService: PlaylistsService,
-    private http: HttpClient
+  constructor(
+    private playlistsService: PlaylistsService,
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    // Soporte para navegación desde playlist
+    this.route.queryParams.subscribe(params => {
+      if (params['playlistCanciones']) {
+        this.playlistCanciones = JSON.parse(params['playlistCanciones']);
+        this.currentIndex = +params['currentIndex'];
+        if (this.currentIndex >= 0) {
+          const c = this.playlistCanciones[this.currentIndex];
+          this.audioUrl = c.audioUrl;
+          this.titulo = c.titulo;
+          this.artista = c.artista;
+          this.portadaUrl = c.portadaUrl;
+          this.cancionId = c.cancionId;
+        }
+      }
+      this.initHowl();
+    });
+
+    this.cargarPlaylists();
+  }
+
+  initHowl() {
+    if (this.sound) {
+      this.sound.unload();
+    }
     this.sound = new Howl({
       src: [this.audioUrl],
       html5: true,
@@ -51,31 +78,27 @@ export class ReproductorMusicaComponent implements OnInit, OnDestroy {
         clearInterval(this.interval);
       }
     });
-
-    this.cargarPlaylists();
   }
 
-cargarPlaylists() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.error('Token no encontrado en localStorage');
-    return;
-  }
-
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
-
-  this.http.get<any[]>('https://ring-town-backend.onrender.com/music/playlists/', { headers })
-    .subscribe({
-      next: (res) => {
-        this.playlists = res;
-      },
-      error: (err) => {
-        console.error('Error cargando playlists', err);
-      }
+  cargarPlaylists() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Token no encontrado en localStorage');
+      return;
+    }
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
-}
+    this.http.get<any[]>('https://ring-town-backend.onrender.com/music/playlists/', { headers })
+      .subscribe({
+        next: (res) => {
+          this.playlists = res;
+        },
+        error: (err) => {
+          console.error('Error cargando playlists', err);
+        }
+      });
+  }
 
   async togglePlay() {
     if (this.isPlaying) {
@@ -109,11 +132,28 @@ cargarPlaylists() {
   }
 
   prevSong() {
-    console.log('Reproducir canción anterior');
+    if (this.playlistCanciones.length > 0 && this.currentIndex > 0) {
+      this.currentIndex--;
+      this.cargarCancionActual();
+    }
   }
 
   nextSong() {
-    console.log('Reproducir siguiente canción');
+    if (this.playlistCanciones.length > 0 && this.currentIndex < this.playlistCanciones.length - 1) {
+      this.currentIndex++;
+      this.cargarCancionActual();
+    }
+  }
+
+  cargarCancionActual() {
+    const c = this.playlistCanciones[this.currentIndex];
+    this.audioUrl = c.audioUrl;
+    this.titulo = c.titulo;
+    this.artista = c.artista;
+    this.portadaUrl = c.portadaUrl;
+    this.cancionId = c.cancionId;
+    this.initHowl();
+    this.togglePlay();
   }
 
   agregarCancion(playlistId: string, cancionId: string) {
@@ -124,12 +164,12 @@ cargarPlaylists() {
     });
     return this.http.post(
       'https://ring-town-backend.onrender.com/music/playlists/agregar',
-      { playlistId, cancionId }, // <-- los nombres deben ser exactamente así
+      { playlistId, cancionId },
       { headers }
     );
   }
+
   agregarCancionAPlaylist() {
-    console.log('playlistSeleccionada:', this.playlistSeleccionada, 'cancionId:', this.cancionId);
     if (!this.playlistSeleccionada || !this.cancionId) {
       alert('Selecciona una playlist y una canción');
       return;

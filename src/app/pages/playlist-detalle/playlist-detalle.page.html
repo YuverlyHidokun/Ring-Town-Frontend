@@ -16,7 +16,7 @@
   </ion-card>
 
   <ion-list *ngIf="playlist?.canciones?.length > 0; else sinCanciones">
-    <ion-item *ngFor="let cancion of playlist.canciones">
+    <ion-item *ngFor="let cancion of playlist.canciones; let i = index">
       <ion-thumbnail slot="start">
         <ion-img [src]="cancion.portadaUrl || 'assets/placeholder.png'"></ion-img>
       </ion-thumbnail>
@@ -24,6 +24,9 @@
         <h2>{{ cancion.titulo }}</h2>
         <p>{{ cancion.artista }} - {{ cancion.genero }}</p>
       </ion-label>
+      <ion-button fill="clear" slot="end" (click)="reproducirCancion(cancion, i)">
+        <ion-icon name="play-circle-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 
